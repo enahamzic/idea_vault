@@ -1,11 +1,21 @@
 <% content_for :title, "New idea" %>
 
-<h1>New idea</h1>
+<div class="max-w-2xl mx-auto">
+  <div class="mb-6">
+    <%= link_to ideas_path, class: "inline-flex items-center text-gray-600 hover:text-gray-900 transition" do %>
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      Back to ideas
+    <% end %>
+  </div>
 
-<%= render "form", idea: @idea %>
+  <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-8">
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-gray-900">Create New Idea</h1>
+      <p class="mt-2 text-gray-600">Capture your brilliant idea and bring it to life</p>
+    </div>
 
-<br>
-
-<div>
-  <%= link_to "Back to ideas", ideas_path %>
+    <%= render "form", idea: @idea %>
+  </div>
 </div>

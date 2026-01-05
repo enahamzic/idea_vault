@@ -1,9 +1,10 @@
 class IdeasController < ApplicationController
-  before_action :set_idea, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :set_idea, only: [:show, :edit, :update, :destroy]
 
-  # GET /ideas or /ideas.json
+  # GET all ideas belonging to current user
   def index
-    @ideas = Idea.all
+    @ideas = current_user.ideas
   end
 
   # GET /ideas/1 or /ideas/1.json
@@ -21,16 +22,12 @@ class IdeasController < ApplicationController
 
   # POST /ideas or /ideas.json
   def create
-    @idea = Idea.new(idea_params)
+    @idea = current_user.ideas.build(idea_params)
 
-    respond_to do |format|
-      if @idea.save
-        format.html { redirect_to @idea, notice: "Idea was successfully created." }
-        format.json { render :show, status: :created, location: @idea }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @idea.errors, status: :unprocessable_entity }
-      end
+    if @idea.save
+      redirect_to @idea, notice: "Idea created!"
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -58,11 +55,10 @@ class IdeasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between actions.
     def set_idea
-      @idea = Idea.find(params.expect(:id))
+      @idea = current_user.ideas.find(params[:id])
     end
-
     # Only allow a list of trusted parameters through.
     def idea_params
       params.expect(idea: [ :title, :description, :rating, :user_id ])
