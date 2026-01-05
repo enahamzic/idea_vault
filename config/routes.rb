@@ -1,4 +1,4 @@
-Rails.application.routes.draw do  
+Rails.application.routes.draw do
   devise_for :users
   resources :ideas
   # Set the ROOT route to ideas#index

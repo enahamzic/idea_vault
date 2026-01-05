@@ -1,6 +1,6 @@
 class IdeasController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_idea, only: [:show, :edit, :update, :destroy]
+  before_action :set_idea, only: [ :show, :edit, :update, :destroy ]
 
   # GET all ideas belonging to current user
   def index
@@ -55,7 +55,7 @@ class IdeasController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+    # Use callbacks to share common setup or constraints between actions.
     def set_idea
       @idea = current_user.ideas.find(params[:id])
     end
